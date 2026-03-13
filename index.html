@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOFT_ARTYRA — Парящие кровати и мебель loft на заказ</title>
+  <meta name="description" content="LOFT_ARTYRA — парящие кровати, матрасы, столы, системы хранения и мебель в стиле loft. Киров. Ручная работа, гарантия 2 года." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --bg2:#121935;
+      --card:rgba(255,255,255,.08);
+      --card-border:rgba(255,255,255,.12);
+      --text:#eef2ff;
+      --muted:#b9c2e0;
+      --accent:#8b5cf6;
+      --accent2:#06b6d4;
+      --accent3:#f59e0b;
+      --success:#22c55e;
+      --danger:#ef4444;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(139,92,246,.25), transparent 30%),
+        radial-gradient(circle at top right, rgba(6,182,212,.18), transparent 30%),
+        linear-gradient(180deg, #0a0f1f 0%, #0d1328 50%, #090d18 100%);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1180px, calc(100% - 32px)); margin:0 auto}
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:blur(16px);
+      background:rgba(7,10,22,.55);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:14px 0;
+    }
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.4px}
+    .logo{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:grid;place-items:center;
+      box-shadow:0 10px 30px rgba(139,92,246,.35);
+      font-size:18px;
+    }
+    .nav-links{display:flex; gap:20px; flex-wrap:wrap}
+    .nav-links a{
+      color:var(--muted);
+      font-size:14px;
+      transition:.25s ease;
+    }
+    .nav-links a:hover{color:#fff}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 20px; border-radius:16px; border:1px solid transparent;
+      font-weight:700; cursor:pointer; transition:.25s ease; text-decoration:none;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff; box-shadow:0 14px 30px rgba(91,77,255,.28);
+    }
+    .btn-primary:hover{transform:translateY(-2px); box-shadow:0 18px 40px rgba(91,77,255,.36)}
+    .btn-secondary{
+      background:rgba(255,255,255,.06); color:#fff; border-color:rgba(255,255,255,.12)
+    }
+    .btn-secondary:hover{background:rgba(255,255,255,.1)}
+    .hero{padding:70px 0 44px}
+    .hero-grid{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+      color:#d8ddf3; font-size:13px;
+    }
+    .hero h1{
+      font-size:clamp(36px, 5vw, 66px);
+      line-height:1.02; margin:18px 0 16px;
+      letter-spacing:-.04em;
+    }
+    .hero p{
+      color:var(--muted); font-size:18px; line-height:1.65; max-width:680px; margin:0 0 28px;
+    }
+    .hero-actions{display:flex; flex-wrap:wrap; gap:14px; margin-bottom:28px}
+    .stats{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+    }
+    .stat{
+      background:var(--card); border:1px solid var(--card-border);
+      border-radius:20px; padding:18px; box-shadow:var(--shadow);
+    }
+    .stat strong{display:block; font-size:22px; margin-bottom:6px}
+    .stat span{color:var(--muted); font-size:14px}
+    .hero-card{
+      position:relative;
+      min-height:520px; border-radius:32px; overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.03)),
+        radial-gradient(circle at 20% 20%, rgba(139,92,246,.35), transparent 28%),
+        radial-gradient(circle at 80% 30%, rgba(6,182,212,.25), transparent 30%),
+        linear-gradient(135deg, #141d3c, #0c1226);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      display:flex; align-items:flex-end; padding:26px;
+    }
+    .bed-scene{
+      position:absolute; inset:0; overflow:hidden;
+    }
+    .glow{
+      position:absolute; width:300px; height:300px; border-radius:50%;
+      filter:blur(30px); opacity:.6;
+    }
+    .glow.one{left:-60px; top:20px; background:rgba(139,92,246,.45)}
+    .glow.two{right:-50px; top:100px; background:rgba(6,182,212,.34)}
+    .floating-bed{
+      position:absolute; left:50%; top:52%; transform:translate(-50%,-50%);
+      width:min(88%, 520px); aspect-ratio:16/10;
+      filter:drop-shadow(0 40px 60px rgba(0,0,0,.45));
+      animation:float 4s ease-in-out infinite;
+    }
+    .bed-base{
+      position:absolute; left:12%; right:12%; bottom:28%;
+      height:20%; border-radius:18px;
+      background:linear-gradient(180deg,#2a313e,#121722);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .bed-top{
+      position:absolute; left:8%; right:8%; bottom:42%;
+      height:26%; border-radius:22px;
+      background:linear-gradient(180deg,#f0f4ff,#ced7ef);
+      box-shadow:inset 0 -10px 18px rgba(0,0,0,.08);
+    }
+    .headboard{
+      position:absolute; left:12%; right:12%; bottom:63%;
+      height:24%; border-radius:22px;
+      background:linear-gradient(180deg,#3b4458,#252b38);
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .bed-light{
+      position:absolute; left:18%; right:18%; bottom:22%;
+      height:14px; border-radius:20px;
+      background:linear-gradient(90deg, rgba(139,92,246,.1), rgba(6,182,212,.9), rgba(139,92,246,.1));
+      filter:blur(10px);
+      opacity:.95;
+    }
+    .pill{
+      position:absolute; width:18%; height:12%; top:38%;
+      background:linear-gradient(180deg,#ffffff,#dbe4ff);
+      border-radius:16px;
+      box-shadow:0 6px 12px rgba(0,0,0,.08);
+    }
+    .pill.left{left:20%}
+    .pill.right{right:20%}
+    .hero-overlay-card{
+      position:relative; z-index:2;
+      width:100%; background:rgba(8,11,24,.54);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(12px);
+      border-radius:22px; padding:18px;
+    }
+    .hero-overlay-card h3{margin:0 0 10px; font-size:20px}
+    .hero-overlay-card p{margin:0; color:var(--muted); font-size:14px}
+    section{padding:34px 0}
+    .section-title{
+      display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:22px;
+    }
+    .section-title h2{
+      margin:0; font-size:clamp(28px, 3vw, 44px); letter-spacing:-.03em;
+    }
+    .section-title p{margin:0; color:var(--muted); max-width:620px}
+    .grid{display:grid; gap:18px}
+    .cards-3{grid-template-columns:repeat(3,1fr)}
+    .cards-4{grid-template-columns:repeat(4,1fr)}
+    .card{
+      background:var(--card);
+      border:1px solid var(--card-border);
+      border-radius:24px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:""; position:absolute; inset:auto -30px -30px auto;
+      width:120px; height:120px; border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.10), transparent 65%);
+      pointer-events:none;
+    }
+    .price{font-size:30px; font-weight:800; margin:10px 0}
+    .muted{color:var(--muted)}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1);
+      color:#fff; font-size:13px;
+    }
+    .configurator{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:20px;
+    }
+    .panel{
+      background:var(--card);
+      border:1px solid var(--card-border);
+      border-radius:28px; padding:24px; box-shadow:var(--shadow);
+    }
+    .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .field label{
+      display:block; font-size:14px; color:#dce4ff; margin-bottom:8px; font-weight:600;
+    }
+    .field select, .field input{
+      width:100%; padding:14px 16px; border-radius:16px;
+      background:rgba(255,255,255,.07); color:#fff;
+      border:1px solid rgba(255,255,255,.12); outline:none;
+    }
+    .field select option{color:#000}
+    .switches{display:grid; gap:12px}
+    .switch{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:16px 18px; border-radius:18px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+    }
+    .switch input{width:22px; height:22px}
+    .summary{
+      display:grid; gap:14px;
+      position:sticky; top:92px;
+    }
+    .sum-line{
+      display:flex; justify-content:space-between; gap:12px;
+      padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08);
+      color:#dfe6ff;
+    }
+    .sum-line:last-child{border-bottom:0}
+    .total{
+      margin-top:8px; padding:20px; border-radius:22px;
+      background:linear-gradient(135deg, rgba(139,92,246,.18), rgba(6,182,212,.18));
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .total strong{font-size:38px; display:block}
+    .installments{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px;
+    }
+    .inst{
+      padding:14px; border-radius:16px; background:rgba(255,255,255,.06); text-align:center;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px}
+    .tab{
+      padding:10px 14px; border-radius:999px; cursor:pointer;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:#dce4ff;
+      transition:.2s ease;
+    }
+    .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; border-color:transparent}
+    .mattress-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+    .mattress{
+      padding:18px; border-radius:22px; background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      transition:.25s ease; cursor:pointer;
+    }
+    .mattress:hover{transform:translateY(-3px); background:rgba(255,255,255,.08)}
+    .mattress.active{outline:2px solid rgba(6,182,212,.9); background:rgba(6,182,212,.08)}
+    .mattress h4{margin:0 0 8px; font-size:18px}
+    .mattress p{margin:0; color:var(--muted); font-size:14px}
+    .ral-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+    .ral{
+      display:flex; align-items:center; gap:14px;
+      padding:14px; border-radius:18px; background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .swatch{
+      width:46px; height:46px; border-radius:14px; border:1px solid rgba(255,255,255,.18);
+      flex:0 0 46px;
+    }
+    .list{display:grid; gap:12px}
+    .list-item{
+      display:flex; justify-content:space-between; gap:14px;
+      padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .list-item:last-child{border-bottom:0}
+    .bonus{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
+    }
+    .bonus .card{padding:20px}
+    .contact-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:20px}
+    .contact-card{
+      display:grid; gap:12px;
+    }
+    .contact-row{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:16px 18px; border-radius:18px; background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .partners{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .partner h3{margin-top:0}
+    .footer{
+      padding:30px 0 50px; color:var(--muted); font-size:14px;
+    }
+    .floating-cta{
+      position:fixed; right:18px; bottom:18px; z-index:45;
+      display:flex; gap:10px; flex-direction:column;
+    }
+    .floating-cta a{
+      padding:14px 16px; border-radius:18px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff; box-shadow:0 12px 30px rgba(91,77,255,.35); font-weight:700;
+    }
+    .reveal{opacity:0; transform:translateY(20px); transition: .7s ease}
+    .reveal.visible{opacity:1; transform:none}
+    @keyframes float{
+      0%,100%{transform:translate(-50%,-50%)}
+      50%{transform:translate(-50%,-54%)}
+    }
+    @media (max-width: 980px){
+      .hero-grid,.configurator,.contact-grid{grid-template-columns:1fr}
+      .cards-4{grid-template-columns:repeat(2,1fr)}
+      .cards-3,.mattress-grid,.bonus,.partners,.ral-grid{grid-template-columns:1fr 1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .summary{position:static}
+    }
+    @media (max-width: 640px){
+      .container{width:min(100% - 24px, 1180px)}
+      .nav-inner{flex-wrap:wrap}
+      .nav-links{display:none}
+      .hero{padding-top:34px}
+      .hero p{font-size:16px}
+      .stats,.cards-4,.cards-3,.mattress-grid,.bonus,.partners,.ral-grid,.form-grid,.installments{grid-template-columns:1fr}
+      .hero-card{min-height:400px}
+      .btn{width:100%}
+      .hero-actions{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <div class="logo">L</div>
+        <div>
+          <div>LOFT_ARTYRA</div>
+          <div style="font-size:12px;color:var(--muted);font-weight:600">Парящие кровати и loft мебель</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#configurator">Конфигуратор</a>
+        <a href="#beds">Кровати</a>
+        <a href="#mattresses">Матрасы</a>
+        <a href="#colors">Цвета RAL</a>
+        <a href="#furniture">Другая мебель</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="btn btn-secondary" href="tel:+79229800306">+7 (922) 980-03-06</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal visible">
+          <div class="eyebrow">✨ Ручная работа · Киров · Гарантия 2 года · Срок 10–14 дней</div>
+          <h1>Выберите свою <span style="background:linear-gradient(135deg,#c084fc,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent">парящую кровать</span> и мебель в стиле loft</h1>
+          <p>Надежные кровати с эффектом парения, матрасы, тумбы, столы и системы хранения. Натуральное дерево, металл, чистая геометрия и современный дизайн под ваш интерьер.</p>
+          <div class="hero-actions">
+            <a href="#configurator" class="btn btn-primary">Собрать комплект</a>
+            <a href="#contacts" class="btn btn-secondary">Связаться в Telegram</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong>от 41 000 ₽</strong>
+              <span>парящая кровать 140×200</span>
+            </div>
+            <div class="stat">
+              <strong>0 ₽</strong>
+              <span>выбор типа конструкции</span>
+            </div>
+            <div class="stat">
+              <strong>60%</strong>
+              <span>предоплата</span>
+            </div>
+            <div class="stat">
+              <strong>3 / 6 / 12</strong>
+              <span>месяцев рассрочки</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card reveal visible">
+          <div class="bed-scene">
+            <div class="glow one"></div>
+            <div class="glow two"></div>
+            <div class="floating-bed">
+              <div class="headboard"></div>
+              <div class="pill left"></div>
+              <div class="pill right"></div>
+              <div class="bed-top"></div>
+              <div class="bed-base"></div>
+              <div class="bed-light"></div>
+            </div>
+          </div>
+          <div class="hero-overlay-card">
+            <h3>Эффект парения без компромиссов</h3>
+            <p>На выбор: крепление к стене или конструкция на 5 ножках. Оба варианта сохраняют современный визуальный эффект и стоят 0 ₽ дополнительно.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="configurator">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Конфигуратор заказа</h2>
+            <p>Подберите размер, конструкцию, матрас, цвет и дополнительные опции. Итоговая стоимость пересчитывается автоматически.</p>
+          </div>
+        </div>
+
+        <div class="configurator">
+          <div class="panel reveal">
+            <div class="form-grid">
+              <div class="field">
+                <label for="size">Размер кровати</label>
+                <select id="size">
+                  <option value="41000">140×200 — 41 000 ₽</option>
+                  <option value="44000">160×200 — 44 000 ₽</option>
+                  <option value="48000">180×200 — 48 000 ₽</option>
+                  <option value="53000">200×200 — 53 000 ₽</option>
+                  <option value="0">Нестандартный размер — индивидуально</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="construction">Тип конструкции</label>
+                <select id="construction">
+                  <option value="0">Крепление к стене — 0 ₽</option>
+                  <option value="0">На 5 ножках — 0 ₽</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="mattressSelect">Матрас</label>
+                <select id="mattressSelect">
+                  <option value="0">Без матраса</option>
+                  <option value="4820">Стандарт 1 — 4 820 ₽</option>
+                  <option value="5140">Стандарт 2 — 5 140 ₽</option>
+                  <option value="5850">Стандарт 3 — 5 850 ₽</option>
+                  <option value="10120">Стандарт Струто — 10 120 ₽</option>
+                  <option value="11336">Sonis Soft — 11 336 ₽</option>
+                  <option value="13630">Flex 4 — 13 630 ₽</option>
+                  <option value="14780">Уют Эконом — 14 780 ₽</option>
+                  <option value="15250">Sonis standart — 15 250 ₽</option>
+                  <option value="15350">Уют Оазис — 15 350 ₽</option>
+                  <option value="15750">Уют Свит — 15 750 ₽</option>
+                  <option value="15120">Luna — 15 120 ₽</option>
+                  <option value="17550">Flex 3 — 17 550 ₽</option>
+                  <option value="17540">Trust — 17 540 ₽</option>
+                  <option value="18710">Уют Меморикс — 18 710 ₽</option>
+                  <option value="20994">Мультипак Paradise — 20 994 ₽</option>
+                  <option value="21530">Мультипак Relax — 21 530 ₽</option>
+                  <option value="22730">Lovely Струто — 22 730 ₽</option>
+                  <option value="24584">Мультипак Люкс — 24 584 ₽</option>
+                  <option value="24710">Lovely Люкс — 24 710 ₽</option>
+                  <option value="26290">Lovely Кокос — 26 290 ₽</option>
+                  <option value="27400">Flex 1 — 27 400 ₽</option>
+                  <option value="29550">Lovely Memory-plus — 29 550 ₽</option>
+                  <option value="29512">Мультипак Престиж — 29 512 ₽</option>
+                  <option value="30680">Lovely Престиж — 30 680 ₽</option>
+                  <option value="31840">Мультипак Memory — 31 840 ₽</option>
+                  <option value="32768">Мультипак Триумф — 32 768 ₽</option>
+                  <option value="33512">Мультипак Латекс — 33 512 ₽</option>
+                  <option value="33290">Lovely Memory — 33 290 ₽</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="color">Цвет каркаса</label>
+                <select id="color">
+                  <option>RAL 9003 — Белый</option>
+                  <option>RAL 7016 — Антрацит</option>
+                  <option>RAL 1013 — Слоновая кость</option>
+                  <option>RAL 3005 — Вишня</option>
+                  <option>RAL 5005 — Синий</option>
+                  <option>RAL 6019 — Зеленый</option>
+                  <option>RAL 8004 — Коричневый</option>
+                  <option>RAL 9005 — Черный</option>
+                  <option>Другой цвет — индивидуально</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="margin-top:18px" class="switches">
+              <label class="switch">
+                <div>
+                  <strong>Декоративные подушки</strong>
+                  <div class="muted">Комплект 2 шт, 40×40 см</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span>3 000 ₽</span>
+                  <input type="checkbox" id="pillows" />
+                </div>
+              </label>
+            </div>
+
+            <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:12px">
+              <a href="#contacts" class="btn btn-primary">Оформить запрос</a>
+              <button class="btn btn-secondary" id="applyQuiz">Применить бонус квиза −500 ₽</button>
+            </div>
+          </div>
+
+          <div class="summary reveal">
+            <div class="panel">
+              <h3 style="margin-top:0">Ваш комплект</h3>
+              <div class="sum-line"><span>Кровать</span><strong id="sumBed">41 000 ₽</strong></div>
+              <div class="sum-line"><span>Конструкция</span><strong id="sumConstruction">0 ₽</strong></div>
+              <div class="sum-line"><span>Матрас</span><strong id="sumMattress">0 ₽</strong></div>
+              <div class="sum-line"><span>Подушки</span><strong id="sumPillows">0 ₽</strong></div>
+              <div class="sum-line"><span>Скидка</span><strong id="sumDiscount">0 ₽</strong></div>
+
+              <div class="total">
+                <div class="muted">Итоговая стоимость</div>
+                <strong id="totalPrice">41 000 ₽</strong>
+                <div class="muted" id="depositText">Предоплата 60%: 24 600 ₽</div>
+
+                <div class="installments">
+                  <div class="inst">
+                    <div class="muted">3 мес.</div>
+                    <strong id="inst3">13 667 ₽</strong>
+                  </div>
+                  <div class="inst">
+                    <div class="muted">6 мес.</div>
+                    <strong id="inst6">6 833 ₽</strong>
+                  </div>
+                  <div class="inst">
+                    <div class="muted">12 мес.</div>
+                    <strong id="inst12">3 417 ₽</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="badge">🎁 Бонусы и скидки</div>
+              <div class="list" style="margin-top:12px">
+                <div class="list-item"><span>За прохождение квиза</span><strong>500 ₽</strong></div>
+                <div class="list-item"><span>Реферальная программа — пригласившему</span><strong>1 000 ₽</strong></div>
+                <div class="list-item"><span>Реферальная программа — приглашенному</span><strong>500 ₽</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="beds">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Базовые каркасы кроватей</h2>
+            <p>Минималистичный loft-дизайн, надежная конструкция и фирменная LED-иллюзия парения.</p>
+          </div>
+        </div>
+        <div class="grid cards-4">
+          <div class="card reveal">
+            <div class="badge">140×200</div>
+            <div class="price">41 000 ₽</div>
+            <div class="muted">Оптимальный вариант для компактной спальни</div>
+          </div>
+          <div class="card reveal">
+            <div class="badge">160×200</div>
+            <div class="price">44 000 ₽</div>
+            <div class="muted">Самый популярный семейный размер</div>
+          </div>
+          <div class="card reveal">
+            <div class="badge">180×200</div>
+            <div class="price">48 000 ₽</div>
+            <div class="muted">Больше пространства и комфорта</div>
+          </div>
+          <div class="card reveal">
+            <div class="badge">200×200</div>
+            <div class="price">53 000 ₽</div>
+            <div class="muted">Максимум свободы для сна и отдыха</div>
+          </div>
+        </div>
+
+        <div style="margin-top:18px" class="grid cards-3">
+          <div class="card reveal">
+            <h3 style="margin-top:0">🧱 Крепление к стене</h3>
+            <p class="muted">Максимальная надежность и чистый эффект парения.</p>
+            <div class="price">0 ₽</div>
+          </div>
+          <div class="card reveal">
+            <h3 style="margin-top:0">🦶 На 5 ножках</h3>
+            <p class="muted">Мобильность, эффект парения и без сверления стен.</p>
+            <div class="price">0 ₽</div>
+          </div>
+          <div class="card reveal">
+            <h3 style="margin-top:0">📐 Нестандартный размер</h3>
+            <p class="muted">Изготовим под ваш проект и параметры помещения.</p>
+            <div class="price" style="font-size:24px">Индивидуально</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mattresses">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Матрасы</h2>
+            <p>Подберите уровень комфорта: бюджетный, средний или премиальный сегмент.</p>
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <div class="tabs">
+            <button class="tab active" data-tab="budget">Бюджетная линейка</button>
